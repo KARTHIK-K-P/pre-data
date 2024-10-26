@@ -1,15 +1,14 @@
 import streamlit as st
 import pandas as pd
 from twilio.rest import Client
-import os
 
 # Load the court scenarios CSV file
 df_scenarios = pd.read_csv('court_scenarios.csv')
 
-# Twilio Configuration
-TWILIO_ACCOUNT_SID = os.getenv('TWILIO_ACCOUNT_SID', 'ACeb2e00c573cc46e4bfd467e85d714d76')  # Your Twilio account SID
-TWILIO_AUTH_TOKEN = os.getenv('TWILIO_AUTH_TOKEN', 'dbae0dba76afe09186159071adf3fb7d')      # Your Twilio Auth Token
-TWILIO_WHATSAPP_NUMBER = 'whatsapp:+14155238886'  # Your Twilio WhatsApp number (sandbox number)
+# Twilio Configuration from Streamlit secrets
+TWILIO_ACCOUNT_SID = st.secrets["twilio"]["account_sid"]  # Your Twilio account SID
+TWILIO_AUTH_TOKEN = st.secrets["twilio"]["auth_token"]  # Your Twilio Auth Token
+TWILIO_WHATSAPP_NUMBER = st.secrets["twilio"]["whatsapp_number"]  # Your Twilio WhatsApp number (sandbox number)
 
 # Initialize Twilio client
 client = Client(TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN)
